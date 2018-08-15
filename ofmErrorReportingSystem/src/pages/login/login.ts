@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HomePage } from '../home/home';
 import { AuthService } from '../../services/auth.service';
 import { SignupPage } from '../signup/signup';
+import { AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -19,6 +20,7 @@ export class LoginPage {
   constructor(
     private auth: AuthService,
     private navCtrl: NavController,
+    private alertCtrl: AlertController,
     fb: FormBuilder
   ) {
     this.loginForm = fb.group({
@@ -41,7 +43,13 @@ export class LoginPage {
     this.auth.signInWithEmail(credentials)
       .then(
         () => console.log('loggedIn')/*this.navCtrl.setRoot(HomePage)*/,
-        error => this.loginError = error.message
+        error => {
+          this.loginError = error.message;
+          console.log(this.loginError);
+          if (this.loginError == 'The password is invalid or the user does not have a password.') {
+            this.loginError = 'The password is invalid or the user is registered with Facebook or Google.';
+          }
+        }
       );
   }
 
@@ -89,6 +97,51 @@ export class LoginPage {
     });
   }
 
+  resetPassword() {
+    
+    //
+    //auth.sendPasswordResetEmail(emailAddress).then(function () {
+    //   Email sent.
+    //}).catch(function (error) {
+    //   An error happened.
+    //});
+    this.alertReeset();
+  }
+
+  alertReeset() {
+    let prompt = this.alertCtrl.create({
+      title: 'Account email',
+      inputs: [
+        {
+          name: 'Email',
+          placeholder: 'Email',
+          type: 'email'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Send Reset Link',
+          handler: data => {
+            let emailAddress = data.Email;
+            let re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            if(re.test(String(emailAddress).toLowerCase())) {
+              this.auth.sendResetEmail(emailAddress); 
+            } else {
+              prompt.setSubTitle('Invalid email syntax');
+              return false;
+            }
+         
+          }
+        }
+      ]
+    });
+
+    prompt.present();
+  }
 }
 
 

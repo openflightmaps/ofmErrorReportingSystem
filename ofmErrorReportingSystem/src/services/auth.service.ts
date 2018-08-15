@@ -83,4 +83,15 @@ export class AuthService {
     });
     
   }
+
+  sendResetEmail(email) {
+    //
+
+    this.afAuth.auth.sendPasswordResetEmail(email).then(function () {
+      console.log('hello');
+    }).catch(function (error) {
+      console.log(error);
+      // An error happened.
+    });
+  }
 }
