@@ -1,7 +1,7 @@
 # ofmErrorReportingSystem
 This system is created to let users easy report errors to contributors, via the trello board "Fir Status Tracking".
 
-###How to test this app
+### How to test this app
 Note: if you don't change anything app will work connected to my firebase.
 
 If you want to connect it to another firebase account:
