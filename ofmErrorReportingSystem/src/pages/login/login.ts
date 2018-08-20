@@ -40,12 +40,12 @@ export class LoginPage {
       email: data.email,
       password: data.password
     };
+
     this.auth.signInWithEmail(credentials)
       .then(
-        () => console.log('loggedIn')/*this.navCtrl.setRoot(HomePage)*/,
+        () => console.log('loggedIn'),
         error => {
           this.loginError = error.message;
-          console.log(this.loginError);
           if (this.loginError == 'The password is invalid or the user does not have a password.') {
             this.loginError = 'The password is invalid or the user is registered with Facebook or Google.';
           }
@@ -74,37 +74,8 @@ export class LoginPage {
       );
   }
 
-  makeRequest(url, comment, coords, country) {
-    return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      let newObj;
-      let data = {
-        comment: comment,
-        coordinates: coords,
-        country: country
-      };
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-          console.log(xhr.responseText);
-          newObj = JSON.stringify(data);
-          resolve();
-        } else if (xhr.readyState == XMLHttpRequest.DONE) {
-          reject()
-        }
-      }
-      xhr.open('POST', url);
-      xhr.send(newObj)
-    });
-  }
 
   resetPassword() {
-    
-    //
-    //auth.sendPasswordResetEmail(emailAddress).then(function () {
-    //   Email sent.
-    //}).catch(function (error) {
-    //   An error happened.
-    //});
     this.alertReeset();
   }
 
@@ -126,9 +97,12 @@ export class LoginPage {
         {
           text: 'Send Reset Link',
           handler: data => {
+
+            //validating email entered
             let emailAddress = data.Email;
-            let re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-            if(re.test(String(emailAddress).toLowerCase())) {
+            let emailTest = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+            if (emailTest.test(String(emailAddress).toLowerCase())) {
               this.auth.sendResetEmail(emailAddress); 
             } else {
               prompt.setSubTitle('Invalid email syntax');

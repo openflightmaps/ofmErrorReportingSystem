@@ -11,7 +11,6 @@ export class AuthService {
   constructor(public afAuth: AngularFireAuth) {
     afAuth.authState.subscribe(user => {
       this.user = user;
-      console.log(this.user);
     });
   }
 
@@ -30,12 +29,10 @@ export class AuthService {
   }
 
   getEmail() {
-
     return this.user && this.user.email;
   }
 
   signOut(): Promise<void> {
-
     return this.afAuth.auth.signOut();
   }
 
@@ -51,14 +48,10 @@ export class AuthService {
       return this.afAuth.auth.signInWithRedirect(provider)
         .then(() => {
           return this.afAuth.auth.getRedirectResult().then(result => {
-            // This gives you a Google Access Token.
-            // You can use it to access the Google API.
-            //let token = result.credential.accessToken;
-            // The signed-in user info.
+
             let user = result.user;
-            // console.log(token, user);
+   
           }).catch(function (error) {
-            // Handle Errors here.
             alert(error.message);
           });
         });
@@ -67,7 +60,6 @@ export class AuthService {
 
   signInWithFacebook(): any {
     console.log('Sign in with facebook');
-    //  var provider = new firebase.auth.FacebookAuthProvider();
     return this.oauthSignIn(new firebase.auth.FacebookAuthProvider());
   }
 
@@ -85,13 +77,10 @@ export class AuthService {
   }
 
   sendResetEmail(email) {
-    //
-
     this.afAuth.auth.sendPasswordResetEmail(email).then(function () {
-      console.log('hello');
+      console.log('Email reset sent');
     }).catch(function (error) {
       console.log(error);
-      // An error happened.
     });
   }
 }

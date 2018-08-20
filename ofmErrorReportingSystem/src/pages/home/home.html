@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title class="title">
-      Ionic Blank
+      Error Report
     </ion-title>
     <ion-buttons end>
       <button ion-button (click)="logout()" *ngIf="auth.authenticated">
@@ -14,18 +14,20 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color:grey;" padding>
+<ion-content style="background-color:#EFF2FF;" padding>
   <p class="navEmail" *ngIf="auth.getEmail()">{{auth.getEmail()}}</p>
-  <h1 *ngIf="!showTextMenu" style="color:white;text-align:center;margin-top:0px;">Choose country to report about</h1>
-  <ion-list class="headList" *ngIf="!showTextMenu">
+  <h1 *ngIf="!showTextMenu" style="color:dodgerblue;text-align:center;margin-top:0px;">Choose country to report about</h1>
+  <div class="listWrapper" *ngIf="!showTextMenu">
+    <ion-list no-margin class="headList">
 
-    <ion-item class="countryList" *ngFor="let item of items" (click)="itemClicked($event, item)">
-      {{ item }}
-    </ion-item>
+      <ion-item class="countryList" *ngFor="let item of items" (click)="itemClicked($event, item)">
+        {{ item }}
+      </ion-item>
 
-  </ion-list>
+    </ion-list>
+  </div>
   <div class="message" *ngIf="showTextMenu">
-    <h1 style="color:white; text-align:center;">Please describe an error for {{countryName}}</h1>
+    <h1 style="color:dodgerblue;text-align:center;">Please describe an error for {{currentRegion}}</h1>
     <ion-textarea [(ngModel)]="textAr" rows="20" class="areaText"></ion-textarea>
     <button class="buttonForSend" ion-button color="primary" (click)="sending()">Send</button>
     <button class="buttonForSend" ion-button color="danger" (click)="cancel()">Cancel</button>
