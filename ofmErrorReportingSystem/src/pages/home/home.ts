@@ -47,7 +47,7 @@ export class HomePage {
     this.auth.getJwt()
       .then(jwt => {
         this.jwt = jwt;
-
+        console.log(this.jwt);
         this.connector.getRegions(this.jwt)
           .then((data) => {
 

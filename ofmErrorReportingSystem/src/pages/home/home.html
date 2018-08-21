@@ -1,10 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title class="title">
-      Error Report
+    <ion-title>
+      <span style="color:white"> Error Report </span>
     </ion-title>
+    <p class="navEmail" *ngIf="auth.getEmail()">{{auth.getEmail()}}</p>
     <ion-buttons end>
-      <button ion-button (click)="logout()" *ngIf="auth.authenticated">
+      <button style="color:white;" ion-button (click)="logout()" *ngIf="auth.authenticated">
         <ion-icon name="log-out" item-left></ion-icon>
       </button>
       <button ion-button (click)="login()" *ngIf="!auth.authenticated">
@@ -14,22 +15,23 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color:#EFF2FF;" padding>
-  <p class="navEmail" *ngIf="auth.getEmail()">{{auth.getEmail()}}</p>
-  <h1 *ngIf="!showTextMenu" style="color:dodgerblue;text-align:center;margin-top:0px;">Choose country to report about</h1>
+<ion-content style="background-color:#F0F0F0;" padding>
+  <p class="emailPhone" *ngIf="auth.getEmail()">{{auth.getEmail()}}</p>
+  <h1 *ngIf="!showTextMenu" style="color:#333;text-align:center;margin-top:0px;">Choose country to report about</h1>
   <div class="listWrapper" *ngIf="!showTextMenu">
     <ion-list no-margin class="headList">
 
       <ion-item class="countryList" *ngFor="let item of items" (click)="itemClicked($event, item)">
-        {{ item }}
+        <ion-icon name="arrow-forward" item-right></ion-icon>
+        <h2 style="font-size:120%;padding-left:15px;margin:0;">{{ item }}</h2>
       </ion-item>
 
     </ion-list>
   </div>
   <div class="message" *ngIf="showTextMenu">
-    <h1 style="color:dodgerblue;text-align:center;">Please describe an error for {{currentRegion}}</h1>
+    <h1 style="color:#333;text-align:center;">Please describe an error for {{currentRegion}}</h1>
     <ion-textarea [(ngModel)]="textAr" rows="20" class="areaText"></ion-textarea>
-    <button class="buttonForSend" ion-button color="primary" (click)="sending()">Send</button>
-    <button class="buttonForSend" ion-button color="danger" (click)="cancel()">Cancel</button>
+    <button class="buttonForSend" ion-button color="light" (click)="cancel()">Cancel</button>
+    <button class="buttonForSend" ion-button color="light" (click)="sending()">Send</button>
   </div>
 </ion-content>
