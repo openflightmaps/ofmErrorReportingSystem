@@ -1,13 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Sign up</ion-title>
+    <ion-title><span style="color:white"> Sign up </span></ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content style="background-color:#F0F0F0;">
 
   <form (ngSubmit)="signup()" [formGroup]="form">
-    <ion-list style="width:300px; margin:0 auto;" class="inpMain" inset>
+    <ion-list style="width:300px; margin:20px auto;" inset>
 
       <ion-item  [ngClass]="{ invalid: emailErrors.hasError('*', ['touched']) }">
         <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
@@ -28,8 +28,7 @@
 
     <div padding-horizontal>
       <div style="text-align:center" class="form-error">{{signupError}}</div>
-
-      <button style="width:100px; margin:18px auto;" ion-button full type="submit" [disabled]="!form.valid">Sign up</button>
+      <button onMouseOver="this.style.color='dodgerblue'" onMouseOut="this.style.color='#333'" style="width:100px; margin:18px auto; background-color:white;color:#333;border:1px solid #BEBEBE" ion-button block type="submit" [disabled]="!form.valid">Sign up</button>
     </div>
   </form>
 </ion-content>

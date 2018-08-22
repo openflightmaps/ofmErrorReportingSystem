@@ -1,8 +1,46 @@
 page-login {
-  @media(min-width: 500px){
-    .inputsMain{
-      width:300px;
-      margin:0 auto;
+  .loginButtons {
+    color: #333;
+    background-color: white;
+    border: 1px solid #BEBEBE;
+  }
+
+  .loginButtons:hover {
+    color: dodgerblue;
+    background-color: white !important;
+  }
+
+  .externalLogin {
+    text-transform: none;
+    background-color: white;
+    border: 1px solid #bebebe;
+    width: auto;
+    margin: 0 auto;
+    padding-left: 0;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .signUp {
+    background-color:white;
+    border:1px solid #BEBEBE;
+    width:auto;
+    margin:0 auto;
+    color:#333
+  }
+
+  .externalLogin:hover, .signUp:hover {
+    background-color: white !important;
+    color: dodgerblue;
+  }
+
+  @media(min-width: 600px) {
+    .inputsMain {
+      width: 300px;
+      margin: 0 auto;
     }
+  }
+
+  @media(max-width: 599px) {
   }
 }

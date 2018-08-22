@@ -3,13 +3,13 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Log in</ion-title>
+    <ion-title> <span style="color:white"> Log in </span></ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content style="background-color:#F0F0F0;">
   <form (ngSubmit)="login()" [formGroup]="loginForm">
-    <ion-list inset>
+    <ion-list class="listMain" inset>
 
       <ion-item class="inputsMain" [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
         <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
@@ -31,8 +31,8 @@
     <div padding-horizontal>
       <div style="text-align:center" class="form-error">{{loginError}}</div>
       <div style="text-align:center">
-        <button ion-button type="submit" [disabled]="!loginForm.valid">Log in</button>
-        <button ion-button (click)="resetPassword()">Forgot password?</button>
+        <button class="loginButtons" ion-button type="submit" [disabled]="!loginForm.valid">Log in</button>
+        <button class="loginButtons" color="clear" ion-button (click)="resetPassword()">Forgot password?</button>
       </div>
       <div style="text-align:center;">
         <p>
@@ -41,17 +41,18 @@
       </div>
 
       <ion-list>
-        <button style="width:auto;margin:0 auto" ion-button icon-left block clear (click)="loginWithFacebook()">
-          <ion-icon name="logo-facebook"></ion-icon>
-          Log in with Facebook
+        <button class="externalLogin" ion-button icon-left block (click)="loginWithFacebook()">
+          <img style="margin:0px 5px 0px 5px;height:25px;width:25px;" src="./assets/icon/facebook-favicon-512.png" />
+          Sign in with Facebook
         </button>
 
-        <button style="width:auto;margin:0 auto" ion-button icon-left block clear (click)="loginWithGoogle()">
-          <ion-icon name="logo-google"></ion-icon>
-          Log in with Google
+        <button class="externalLogin" ion-button block icon-left (click)="loginWithGoogle()">
+          <!--//<ion-icon style="color:red; " name="logo-google"></ion-icon>-->
+          <img style="margin:0px 5px 0px 5px;height:25px;width:25px;" src="./assets/icon/new-google-favicon-512.png" />
+          <p>Sign in with Google</p>
         </button>
 
-        <button style="width:auto;margin:0 auto" ion-button icon-left block clear (click)="signup()">
+        <button class="signUp" ion-button icon-left block (click)="signup()">
           <ion-icon name="person-add"></ion-icon>
           Sign up
         </button>

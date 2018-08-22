@@ -4,6 +4,11 @@
   background-color: black;
   color: white;
 }
+
+
+ion-header ion-icon.back-button-icon.icon {
+  color: map-get($colors, light);
+}
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These

@@ -1,6 +1,24 @@
 page-signup {
-  .inpMain {
-    width: 300px;
-    margin:0 auto;
+
+  @media(min-width: 600px) {
+
+    .loginButtons:hover {
+      color: white;
+    }
+
+    .externalLogin {
+      text-transform: none;
+      background-color: white;
+      border: 1px solid #bebebe;
+      width: auto;
+      margin: 0 auto;
+      padding-left: 0;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .externalLogin:hover {
+      background-color: white !important;
+    }
   }
 }
