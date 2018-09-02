@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HomePage } from '../home/home';
 import { AuthService } from '../../services/auth.service';
 import { SignupPage } from '../signup/signup';
+import { LoginEmailPage } from '../login-email/login-email';
 import { AlertController } from 'ionic-angular';
 
 @IonicPage()
@@ -24,8 +25,7 @@ export class LoginPage {
     fb: FormBuilder
   ) {
     this.loginForm = fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+      email: ['', Validators.compose([Validators.required, Validators.email])]
     });
   }
 
@@ -38,12 +38,13 @@ export class LoginPage {
 
     let credentials = {
       email: data.email,
-      password: data.password
     };
 
     this.auth.signInWithEmail(credentials)
       .then(
-        () => console.log('loggedIn'),
+        () => { console.log('loggedIn');
+    		this.navCtrl.push(LoginEmailPage);
+		},
         error => {
           this.loginError = error.message;
           if (this.loginError == 'The password is invalid or the user does not have a password.') {

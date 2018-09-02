@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "dev": "ofm-error-reporting-test",
+    "prod": "ofm-error-reporting-prod"
+  }
+}

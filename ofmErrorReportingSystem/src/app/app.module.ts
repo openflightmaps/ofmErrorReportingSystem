@@ -9,9 +9,13 @@ import { HomePage } from '../pages/home/home';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { firebaseConfig } from '../config';
+import { environment } from '../environments/environment';
+
+import 'firebase/app';
+import 'firebase/functions';
 
 import { LoginPage } from '../pages/login/login';
+import { LoginEmailPage } from '../pages/login-email/login-email';
 import { SignupPage } from '../pages/signup/signup';
 
 import { AuthService } from '../services/auth.service';
@@ -23,12 +27,13 @@ import { ConnectorProvider } from '../providers/connector/connector';
     MyApp,
     HomePage,
     LoginPage,
+    LoginEmailPage,
     SignupPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig.fire),
+    AngularFireModule.initializeApp(environment.firebase),
     NgxErrorsModule
   ],
   bootstrap: [IonicApp],
@@ -36,6 +41,7 @@ import { ConnectorProvider } from '../providers/connector/connector';
     MyApp,
     HomePage,
     LoginPage,
+    LoginEmailPage,
     SignupPage
   ],
   providers: [

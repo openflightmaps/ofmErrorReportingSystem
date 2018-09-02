@@ -7,6 +7,8 @@ import AuthProvider = firebase.auth.AuthProvider;
 @Injectable()
 export class AuthService {
   private user: firebase.User;
+  private emailSent: boolean;
+  private errorMessage: string;
 
   constructor(public afAuth: AngularFireAuth) {
     afAuth.authState.subscribe(user => {
@@ -14,10 +16,39 @@ export class AuthService {
     });
   }
 
-  signInWithEmail(credentials) {
+  async signInWithEmail(credentials) {
     console.log('Sign in with email');
-    return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,
-      credentials.password);
+    let actionCodeSettings = {
+	url: 'https://ofm-error-reporting-test.firebaseapp.com',
+	handleCodeInApp: true,
+    };
+
+    try {
+      await this.afAuth.auth.sendSignInLinkToEmail(credentials.email, actionCodeSettings);
+      window.localStorage.setItem('emailForSignIn', credentials.email);
+      this.emailSent = true;
+    } catch (err) {
+      this.errorMessage = err.message;
+    }
+  }
+
+  async confirmSignIn(url) {
+    try {
+      if (this.afAuth.auth.isSignInWithEmailLink(url)) {
+        let email = window.localStorage.getItem('emailForSignIn');
+  
+        // If missing email, prompt user for it
+        if (!email) {
+          email = window.prompt('Please provide your email for confirmation');
+        }
+  
+        // Signin user and remove the email localStorage
+        const result = await this.afAuth.auth.signInWithEmailLink(email, url);
+        window.localStorage.removeItem('emailForSignIn');
+      }
+    } catch (err) {
+      this.errorMessage = err.message;
+    }
   }
 
   signUp(credentials) {
@@ -61,19 +92,6 @@ export class AuthService {
   signInWithFacebook(): any {
     console.log('Sign in with facebook');
     return this.oauthSignIn(new firebase.auth.FacebookAuthProvider());
-  }
-
-  getJwt() {
-    return new Promise((resolve, reject) => {
-      this.user.getIdToken()
-        .then(data => {
-          resolve(data);
-        })
-        .catch(e => {
-          reject(e);
-        });
-    });
-    
   }
 
   sendResetEmail(email) {

@@ -43,5 +43,12 @@ export class MyApp {
     });
 
   }
+
+  ngOnInit() {
+	console.log("onInit");
+	const url = window.location.href;
+	console.log(url);
+	this.auth.confirmSignIn(url);
+  }
 }
 

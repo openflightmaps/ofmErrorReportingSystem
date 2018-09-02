@@ -9,7 +9,30 @@
 
 <ion-content style="background-color:#F0F0F0;">
   <form (ngSubmit)="login()" [formGroup]="loginForm">
+    <div padding-horizontal>
+      <div style="text-align:center;">
+        <p>
+          Log In with your social account.
+        </p>
+      </div>
+
+      <ion-list>
+        <button class="externalLogin" ion-button block icon-left (click)="loginWithGoogle()">
+          <!--//<ion-icon style="color:red; " name="logo-google"></ion-icon>-->
+          <img style="margin:0px 5px 0px 5px;height:25px;width:25px;" src="./assets/icon/new-google-favicon-512.png" />
+          <p>Sign in with Google</p>
+        </button>
+      </ion-list>
+    </div>
     <ion-list class="listMain" inset>
+      <div style="text-align:center;">
+        <p>
+          Or log in with your email address.
+        </p>
+        <p style="visibility: hidden">
+          Check your mailbox!
+        </p>
+      </div>
 
       <ion-item class="inputsMain" [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
         <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
@@ -19,45 +42,11 @@
         <div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">It should be a valid email</div>
       </div>
 
-      <ion-item class="inputsMain" [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched']) }">
-        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
-      </ion-item>
-
-      <div class="inputsMain" ngxErrors="password" #passwordErrors="ngxErrors">
-        <div [ngxError]="['minlength', 'required']" [when]="['touched']">It should be at least 5 characters</div>
-      </div>
-    </ion-list>
-
-    <div padding-horizontal>
       <div style="text-align:center" class="form-error">{{loginError}}</div>
       <div style="text-align:center">
         <button class="loginButtons" ion-button type="submit" [disabled]="!loginForm.valid">Log in</button>
-        <button class="loginButtons" color="clear" ion-button (click)="resetPassword()">Forgot password?</button>
       </div>
-      <div style="text-align:center;">
-        <p>
-          If you're a new user, please sign up.
-        </p>
-      </div>
+    </ion-list>
 
-      <ion-list>
-        <button class="externalLogin" ion-button icon-left block (click)="loginWithFacebook()">
-          <img style="margin:0px 5px 0px 5px;height:25px;width:25px;" src="./assets/icon/facebook-favicon-512.png" />
-          Sign in with Facebook
-        </button>
-
-        <button class="externalLogin" ion-button block icon-left (click)="loginWithGoogle()">
-          <!--//<ion-icon style="color:red; " name="logo-google"></ion-icon>-->
-          <img style="margin:0px 5px 0px 5px;height:25px;width:25px;" src="./assets/icon/new-google-favicon-512.png" />
-          <p>Sign in with Google</p>
-        </button>
-
-        <button class="signUp" ion-button icon-left block (click)="signup()">
-          <ion-icon name="person-add"></ion-icon>
-          Sign up
-        </button>
-
-      </ion-list>
-    </div>
   </form>
 </ion-content>

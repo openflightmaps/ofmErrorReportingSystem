@@ -21,7 +21,6 @@ export class HomePage {
   private items: Array<any>;
   private showTextMenu: boolean = false;
   private currentRegion: string = '';
-  private jwt = {};
   constructor(
     private auth: AuthService,
     public navCtrl: NavController,
@@ -31,7 +30,6 @@ export class HomePage {
   ) {
     this.items = [];
     this.currentRegion = '';
-    this.jwt = {};
   }
 
 
@@ -43,30 +41,19 @@ export class HomePage {
 
     load.present();
 
-    //getting JWT of the user
-    this.auth.getJwt()
-      .then(jwt => {
-        this.jwt = jwt;
-        console.log(this.jwt);
-        this.connector.getRegions(this.jwt)
-          .then((data) => {
+    this.connector.getRegions()
+      .then((result) => {
+        //display countries to the user
+        let cards = result.data;
+        console.log(cards);
 
-            //display countries to the user
-            let cards = data[0];
+        for (let i = 0; i < cards.length; i++) {
+          this.items.push(cards[i].name);
+        }
 
-            for (let i = 0; i < cards.length; i++) {
-              this.items.push(cards[i].name);
-            }
-
-            load.dismiss();
-            
-          })
-
-          .catch(e => {
-            load.dismiss();
-            this.errorAlert(e);
-          });
+        load.dismiss();
       })
+
       .catch(e => {
         load.dismiss();
         this.errorAlert(e);
@@ -103,20 +90,18 @@ export class HomePage {
 
       load.present();
 
-      if (this.jwt != {}) {
-        this.connector.postMessage(this.jwt, em, { header: 'Error Message', message: this.textAr }, this.currentRegion)
-          .then(() => {
-            load.dismiss();
-            //after posting message return a default UI view
-            this.textAr = '';
-            this.showTextMenu = false;
-            this.alertSentMessage();
-          })
-          .catch(e => {
-            load.dismiss();
-            this.errorAlert(e);
-          });
-      }
+      this.connector.postMessage({ header: 'Error Message', message: this.textAr, region: this.currentRegion })
+        .then(() => {
+          load.dismiss();
+          //after posting message return a default UI view
+          this.textAr = '';
+          this.showTextMenu = false;
+          this.alertSentMessage();
+        })
+        .catch(e => {
+          load.dismiss();
+          this.errorAlert(e);
+        });
     } else {
       this.alertEmpty();
     }
