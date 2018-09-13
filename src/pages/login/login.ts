@@ -1,5 +1,5 @@
 
-import {/* IonicPage,*/ NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HomePage } from '../home/home';
@@ -8,7 +8,7 @@ import { SignupPage } from '../signup/signup';
 import { LoginEmailPage } from '../login-email/login-email';
 import { AlertController } from 'ionic-angular';
 
-//@IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',

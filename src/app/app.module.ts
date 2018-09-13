@@ -14,9 +14,9 @@ import { environment } from '../environments/environment';
 import 'firebase/app';
 import 'firebase/functions';
 
-import { LoginPage } from '../pages/login/login';
-import { LoginEmailPage } from '../pages/login-email/login-email';
-import { SignupPage } from '../pages/signup/signup';
+import { LoginPageModule } from '../pages/login/login.module';
+import { LoginEmailPageModule } from '../pages/login-email/login-email.module';
+import { SignupPageModule } from '../pages/signup/signup.module';
 
 import { AuthService } from '../services/auth.service';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
@@ -25,24 +25,21 @@ import { ConnectorProvider } from '../providers/connector/connector';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    LoginPage,
-    LoginEmailPage,
-    SignupPage
+    HomePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase),
-    NgxErrorsModule
+    NgxErrorsModule,
+    LoginPageModule,
+    LoginEmailPageModule,
+    SignupPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    LoginPage,
-    LoginEmailPage,
-    SignupPage
+    HomePage
   ],
   providers: [
     StatusBar,
